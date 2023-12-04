@@ -25,6 +25,10 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.1.16",
+    "@nestjs/throttler": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "helmet": "^7.1.0",
+    "ncsrf": "^1.0.11",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"
   },

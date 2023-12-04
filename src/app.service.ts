@@ -37,15 +37,35 @@ export class AppService {
     return hash;
   }
 
-  async login(usuario: string, clave: string): Promise<string> {
-    if (usuario === "jorge" && clave === "123456") {
-      const payload = {
+  async loginRoles(usuario: string, clave: string): Promise<string> {
+    const hash = this.hashing(clave);
+    if (usuario === "jorge" && hash === "e10adc3949ba59abbe56e057f20f883e") {
+      const jsonInfo = {
         nombre: "Jorge",
         apellido: "Parra",
         correo: "jorge@gmail.com",
-        perfil: "ADMINISTRADOR"
+        perfil: [ "ADMINISTRADOR", "VENDEDOR" ]
       };
-      const jwt = await this.jwtService.signAsync(payload);
+      const jwt = await this.jwtService.signAsync(jsonInfo);
+      return jwt;
+    }
+    throw new UnauthorizedException("El usuario o contraseña no es válido")
+  }
+
+  async loginPermisos(usuario: string, clave: string): Promise<string> {
+    const hash = this.hashing(clave);
+    if (usuario === "jorge" && hash === "e10adc3949ba59abbe56e057f20f883e") {
+      const jsonInfo = {
+        nombre: "Jorge",
+        apellido: "Parra",
+        correo: "jorge@gmail.com",
+        perfil: [ "ADMINISTRADOR", "VENDEDOR" ],
+        permisos: [
+          "CREAR_PRODUCTO",
+          "CONSULTAR_PRODUCTO",
+        ]
+      };
+      const jwt = await this.jwtService.signAsync(jsonInfo);
       return jwt;
     }
     throw new UnauthorizedException("El usuario o contraseña no es válido")
